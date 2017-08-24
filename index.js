@@ -92,7 +92,6 @@ const Game = function (autoPlayer) {
   // public : initialize the ai player for this game
   this.ai = autoPlayer;
   this.currentState = new State();
-  console.log(this.currentState);
 
   this.currentState.board = [
     'E',
@@ -113,31 +112,6 @@ const Game = function (autoPlayer) {
     this.currentState = _state;
     if (_state.isWinner()) {
       this.status = 'ended';
-
-      //   if (_state.result === 'X-won')
-      //   // X won
-      //   {
-      //     ui.switchViewTo('won');
-      //   } else if (_state.result === 'O-won')
-      //   // X lost
-      //   {
-      //     ui.switchViewTo('lost');
-      //   } else
-      //   // it's a draw
-      //   {
-      //     ui.switchViewTo('draw');
-      //   }
-      // } else {
-      //   // the game is still running
-      //
-      //   if (this.currentState.turn === 'X') {
-      //     ui.switchViewTo('human');
-      //   } else {
-      //     ui.switchViewTo('robot');
-      //
-      //     // notify the AI player its turn has come up
-      //     this.ai.notify('O');
-      //   }
     }
   };
 
@@ -271,31 +245,31 @@ function calcBest(turn) {
 const game = new Game();
 
 game.start();
-console.log(game.currentState, 'game start');
-calcBest('X');
-console.log('best first move!!!!', game.currentState);
-console.log('first move state', game.currentState);
-let move = calcBest('O');
-game.currentState.isWinner();
-console.log('new game state:', game.currentState);
-let Xmove = calcBest('X');
-game.currentState.isWinner();
-console.log('new game state:', game.currentState);
-move = calcBest('O');
-game.currentState.isWinner();
-console.log('new game state:', game.currentState);
-Xmove = calcBest('X');
-game.currentState.isWinner();
-console.log('new game state:', game.currentState);
-move = calcBest('O');
-game.currentState.isWinner();
-console.log('new game state:', game.currentState);
-Xmove = calcBest('X');
-game.currentState.isWinner();
-console.log('new game state:', game.currentState);
-move = calcBest('O');
-game.currentState.isWinner();
-console.log('new game state:', game.currentState);
-Xmove = calcBest('X');
-game.currentState.isWinner();
-console.log('new game state:', game.currentState);
+// console.log(game.currentState, 'game start');
+// calcBest('X');
+// console.log('best first move!!!!', game.currentState);
+// console.log('first move state', game.currentState);
+// let move = calcBest('O');
+// game.currentState.isWinner();
+// console.log('new game state:', game.currentState);
+// let Xmove = calcBest('X');
+// game.currentState.isWinner();
+// console.log('new game state:', game.currentState);
+// move = calcBest('O');
+// game.currentState.isWinner();
+// console.log('new game state:', game.currentState);
+// Xmove = calcBest('X');
+// game.currentState.isWinner();
+// console.log('new game state:', game.currentState);
+// move = calcBest('O');
+// game.currentState.isWinner();
+// console.log('new game state:', game.currentState);
+// Xmove = calcBest('X');
+// game.currentState.isWinner();
+// console.log('new game state:', game.currentState);
+// move = calcBest('O');
+// game.currentState.isWinner();
+// console.log('new game state:', game.currentState);
+// Xmove = calcBest('X');
+// game.currentState.isWinner();
+// console.log('new game state:', game.currentState);

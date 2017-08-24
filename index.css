@@ -19,6 +19,9 @@
     margin: 0 auto;
 }
 
+h3 {
+  margin:0;
+}
 .cell {
     width: 140px;
     height: 140px;
@@ -73,7 +76,9 @@
     cursor:pointer;
     opacity:0.5;
 }
-
+#replay {
+  display:none;
+}
 .start:hover {
     opacity:1;
 }
@@ -89,4 +94,6 @@
 
 .robot {
     opacity:0.5;
+    height: 200px;
+    width: 200px;
 }
