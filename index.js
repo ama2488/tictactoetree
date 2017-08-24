@@ -4,7 +4,7 @@ const State = function (old) {
   this.result = 'still running';
   this.board = [];
 
-  // construct state
+  // create new state
   if (typeof old !== 'undefined') {
     const length = old.board.length;
     this.board = new Array(length);
@@ -32,18 +32,13 @@ const State = function (old) {
     return cells;
   };
 
-  /*
-  * public  function that checks if the state is a terminal state or not
-  * the state result is updated to reflect the result of the game
-  * @returns [Boolean]: true if it's terminal, false otherwise
-  */
   this.isWinner = function () {
     const B = this.board;
 
     // check rows
     for (let i = 0; i <= 6; i += 3) {
       if (B[i] !== 'E' && B[i] === B[i + 1] && B[i + 1] == B[i + 2]) {
-        this.result = `${B[i]}-won`; // update the state result
+        this.result = `${B[i]}-won`;
         return true;
       }
     }
@@ -51,7 +46,7 @@ const State = function (old) {
     // check columns
     for (let i = 0; i <= 2; i++) {
       if (B[i] !== 'E' && B[i] === B[i + 3] && B[i + 3] === B[i + 6]) {
-        this.result = `${B[i]}-won`; // update the state result
+        this.result = `${B[i]}-won`;
         return true;
       }
     }
@@ -59,14 +54,14 @@ const State = function (old) {
     // check diagonals
     for (let i = 0, j = 4; i <= 2; i += 2, j -= 2) {
       if (B[i] !== 'E' && B[i] == B[i + j] && B[i + j] === B[i + 2 * j]) {
-        this.result = `${B[i]}-won`; // update the state result
+        this.result = `${B[i]}-won`;
         return true;
       }
     }
 
     const available = this.emptyCells();
     if (available.length === 0) {
-      this.result = 'draw'; // update the state result
+      this.result = 'draw';
       return true;
     }
     return false;
@@ -74,17 +69,9 @@ const State = function (old) {
 };
 
 const playerMove = function (pos) {
-  // public : the position on the board that the action would put the letter on
   this.movePosition = pos;
-
-  // public : the minimax value of the state that the action leads to when applied
   this.minimaxVal = 0;
 
-  /*
-  * public : applies the action to a state to get the next state
-  * @param state [State]: the state to apply the action to
-  * @return [State]: the next state
-  */
   this.applyTo = function (state) {
     const next = new State(state);
 
@@ -104,12 +91,9 @@ const playerMove = function (pos) {
 const Game = function (autoPlayer) {
   // public : initialize the ai player for this game
   this.ai = autoPlayer;
-
-  // public : initialize the game current state to empty board configuration
   this.currentState = new State();
   console.log(this.currentState);
 
-  // "E" stands for empty board cell
   this.currentState.board = [
     'E',
     'E',
@@ -122,47 +106,39 @@ const Game = function (autoPlayer) {
     'E',
   ];
 
-  this.currentState.turn = 'X'; // X plays first
-
-  /*
-  * initialize game status to beginning
-  */
+  this.currentState.turn = 'X';
   this.status = 'beginning';
 
-  /*
-  * public function that advances the game to a new state
-  * @param _state [State]: the new state to advance the game to
-  */
   this.advanceTo = function (_state) {
     this.currentState = _state;
-    // if (_state.isTerminal()) {
-    //   this.status = 'ended';
-    //
-    //   if (_state.result === 'X-won')
-    //   // X won
-    //   {
-    //     ui.switchViewTo('won');
-    //   } else if (_state.result === 'O-won')
-    //   // X lost
-    //   {
-    //     ui.switchViewTo('lost');
-    //   } else
-    //   // it's a draw
-    //   {
-    //     ui.switchViewTo('draw');
-    //   }
-    // } else {
-    //   // the game is still running
-    //
-    //   if (this.currentState.turn === 'X') {
-    //     ui.switchViewTo('human');
-    //   } else {
-    //     ui.switchViewTo('robot');
-    //
-    //     // notify the AI player its turn has come up
-    //     this.ai.notify('O');
-    //   }
-    // }
+    if (_state.isWinner()) {
+      this.status = 'ended';
+
+      //   if (_state.result === 'X-won')
+      //   // X won
+      //   {
+      //     ui.switchViewTo('won');
+      //   } else if (_state.result === 'O-won')
+      //   // X lost
+      //   {
+      //     ui.switchViewTo('lost');
+      //   } else
+      //   // it's a draw
+      //   {
+      //     ui.switchViewTo('draw');
+      //   }
+      // } else {
+      //   // the game is still running
+      //
+      //   if (this.currentState.turn === 'X') {
+      //     ui.switchViewTo('human');
+      //   } else {
+      //     ui.switchViewTo('robot');
+      //
+      //     // notify the AI player its turn has come up
+      //     this.ai.notify('O');
+      //   }
+    }
   };
 
   this.start = function () {
@@ -185,14 +161,11 @@ Game.score = function (_state) {
   return 0;
 };
 
-const game = new Game();
-
 function minimaxValue(state) {
-  if (state.isTerminal()) {
-    // a terminal game state is the base case
+  if (state.isWinner()) {
     return Game.score(state);
   }
-  let stateScore; // this stores the minimax value we'll compute
+  let stateScore;
 
   if (state.turn === 'X')
   // X wants to maximize --> initialize to a value smaller than any possible score
@@ -215,12 +188,9 @@ function minimaxValue(state) {
     return nextState;
   });
 
-  /* calculate the minimax value for all available next states
-             * and evaluate the current state's value */
   availableNextStates.forEach((nextState) => {
     const nextScore = minimaxValue(nextState);
     if (state.turn === 'X') {
-      // X wants to maximize --> update stateScore iff nextScore is larger
       if (nextScore > stateScore) {
         stateScore = nextScore;
       }
@@ -233,10 +203,7 @@ function minimaxValue(state) {
 }
 
 const AIAction = function (pos) {
-  // public : the position on the board that the action would put the letter on
   this.movePosition = pos;
-
-  // public : the minimax value of the state that the action leads to when applied
   this.minimaxVal = 0;
 
   this.applyTo = function (state) {
@@ -278,7 +245,6 @@ AIAction.DESCENDING = function (firstAction, secondAction) {
 function calcBest(turn) {
   const available = game.currentState.emptyCells();
 
-  // enumerate and calculate the score for each avaialable actions to the ai player
   const availableActions = available.map((pos) => {
     const action = new AIAction(pos); // create the action object
     const next = action.applyTo(game.currentState); // get next state by applying the action
@@ -293,15 +259,43 @@ function calcBest(turn) {
     availableActions.sort(AIAction.ASCENDING);
   }
 
-  // take the first action as it's the optimal
   const chosenAction = availableActions[0];
   const next = chosenAction.applyTo(game.currentState);
 
   // ui.insertAt(chosenAction.movePosition, turn);
 
   game.advanceTo(next);
+  return chosenAction;
 }
 
+const game = new Game();
+
 game.start();
-console.log(game.currentState);
-// console.log(Game.currentState.board);
+console.log(game.currentState, 'game start');
+calcBest('X');
+console.log('best first move!!!!', game.currentState);
+console.log('first move state', game.currentState);
+let move = calcBest('O');
+game.currentState.isWinner();
+console.log('new game state:', game.currentState);
+let Xmove = calcBest('X');
+game.currentState.isWinner();
+console.log('new game state:', game.currentState);
+move = calcBest('O');
+game.currentState.isWinner();
+console.log('new game state:', game.currentState);
+Xmove = calcBest('X');
+game.currentState.isWinner();
+console.log('new game state:', game.currentState);
+move = calcBest('O');
+game.currentState.isWinner();
+console.log('new game state:', game.currentState);
+Xmove = calcBest('X');
+game.currentState.isWinner();
+console.log('new game state:', game.currentState);
+move = calcBest('O');
+game.currentState.isWinner();
+console.log('new game state:', game.currentState);
+Xmove = calcBest('X');
+game.currentState.isWinner();
+console.log('new game state:', game.currentState);
