@@ -3,7 +3,7 @@ $(document).ready(() => {
     if (!game.currentState.isWinner()) {
       $('.level').hide();
       $('#start').hide();
-      let player = game.currentState.turn;
+      const player = game.currentState.turn;
       const $cell = $(e.target);
       const index = $cell.attr('data-indx');
 
@@ -11,12 +11,14 @@ $(document).ready(() => {
       const move = new playerMove(index);
       const newState = move.applyTo(game.currentState);
       game.advanceTo(newState);
-      let newMove = $('<h3/>', { text: `${player}` });
+      const newMove = $('<h3/>', { text: `${player}` });
       $cell.append(newMove);
       $('#human').hide();
       displayWinner(game.currentState);
+    }
 
-      // add AI move to board
+    // add AI move to board
+    if (!game.currentState.isWinner()) {
       player = game.currentState.turn;
       const AIplay = calcBest('O');
       const AIindex = AIplay.movePosition.toString();
