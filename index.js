@@ -1,3 +1,5 @@
+let easyGamePlay;
+
 const State = function (old) {
   this.turn = '';
   this.oMovesCount = 0;
@@ -217,6 +219,7 @@ AIAction.DESCENDING = function (firstAction, secondAction) {
 };
 
 function calcBest(turn) {
+  let chosenAction;
   const available = game.currentState.emptyCells();
 
   const availableActions = available.map((pos) => {
@@ -226,17 +229,18 @@ function calcBest(turn) {
     return action;
   });
 
-  // sort the enumerated actions list by score
   if (turn === 'X') {
     availableActions.sort(AIAction.DESCENDING);
   } else {
     availableActions.sort(AIAction.ASCENDING);
   }
-
-  const chosenAction = availableActions[0];
+  if (easyGamePlay) {
+    const rando = Math.floor(Math.random() * 2);
+    chosenAction = availableActions[rando];
+  } else {
+    chosenAction = availableActions[0];
+  }
   const next = chosenAction.applyTo(game.currentState);
-
-  // ui.insertAt(chosenAction.movePosition, turn);
 
   game.advanceTo(next);
   return chosenAction;

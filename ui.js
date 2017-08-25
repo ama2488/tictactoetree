@@ -1,21 +1,22 @@
 $(document).ready(() => {
   $('.cell').click((e) => {
-    $('#start').hide();
-    let player = game.currentState.turn;
-    const $cell = $(e.target);
-    const index = $cell.attr('data-indx');
-
-    // add players move to board
-    const move = new playerMove(index);
-    const newState = move.applyTo(game.currentState);
-    game.advanceTo(newState);
-    let newMove = $('<h3/>', { text: `${player}` });
-    $cell.append(newMove);
-    $('#human').hide();
-    displayWinner(game.currentState);
-
-    // add AI move to board
     if (!game.currentState.isWinner()) {
+      $('.level').hide();
+      $('#start').hide();
+      let player = game.currentState.turn;
+      const $cell = $(e.target);
+      const index = $cell.attr('data-indx');
+
+      // add players move to board
+      const move = new playerMove(index);
+      const newState = move.applyTo(game.currentState);
+      game.advanceTo(newState);
+      let newMove = $('<h3/>', { text: `${player}` });
+      $cell.append(newMove);
+      $('#human').hide();
+      displayWinner(game.currentState);
+
+      // add AI move to board
       player = game.currentState.turn;
       const AIplay = calcBest('O');
       const AIindex = AIplay.movePosition.toString();
@@ -50,5 +51,15 @@ $(document).ready(() => {
 
   $('#replay').click(() => {
     window.location.reload();
+  });
+
+  $('#easy').click(() => {
+    easyGamePlay = true;
+    $('.level').toggle();
+  });
+
+  $('#hard').click(() => {
+    easyGamePlay = false;
+    $('.level').toggle();
   });
 });
