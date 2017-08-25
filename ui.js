@@ -24,8 +24,9 @@ $(document).ready(() => {
       window.setTimeout(() => {
         $moveCell.append(newMove);
         $('#ai').hide();
+        $('#robot').hide();
         displayWinner(game.currentState);
-      }, 5000);
+      }, 3850);
     }
   });
 
@@ -43,6 +44,7 @@ $(document).ready(() => {
       $('#human').toggle();
     } else {
       $('#ai').toggle();
+      $('#robot').toggle();
     }
   }
 

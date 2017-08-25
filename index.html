@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Tic-Tac-Toe AI</title>
+  <title>Tic-Tac-Toe</title>
   <link rel='stylesheet' type='text/css' href='index.css'>
 </head>
 
@@ -10,38 +10,36 @@
 
   <div class='main-container'>
     <div class="main-heading">
-      <h1>Tic Tac Toe </h1>
+      <h1 class='title'>Tic Tac Toe </h1>
     </div>
-
-    <div class='board'>
-      <!-- data-indx following cell divs represents cell index in 1D array representation -->
-      <div class='cell' data-indx="0"></div>
-      <div class='cell' data-indx="1"></div>
-      <div class='cell' data-indx="2"></div>
-      <div class='cell' data-indx="3"></div>
-      <div class='cell' data-indx="4"></div>
-      <div class='cell' data-indx="5"></div>
-      <div class='cell' data-indx="6"></div>
-      <div class='cell' data-indx="7"></div>
-      <div class='cell' data-indx="8"></div>
+    <div class="boardspace">
+      <img src="https://media.giphy.com/media/aLLliJbo5Mdjy/giphy.gif" id="robot" class="robot" />
+      <div class='board'>
+        <!-- data-indx following cell divs represents cell index in 1D array representation -->
+        <div class='cell' data-indx="0"></div>
+        <div class='cell' data-indx="1"></div>
+        <div class='cell' data-indx="2"></div>
+        <div class='cell' data-indx="3"></div>
+        <div class='cell' data-indx="4"></div>
+        <div class='cell' data-indx="5"></div>
+        <div class='cell' data-indx="6"></div>
+        <div class='cell' data-indx="7"></div>
+        <div class='cell' data-indx="8"></div>
+      </div>
     </div>
 
     <div class='control'>
-      <!-- div.intial displays the starting controls -->
-      <div class='intial'>
-        <div id='start'> Make your move! </div>
-      </div>
+      <div id='start'> Make your move! </div>
 
       <!-- div.ingame displays in-game messages and controls -->
-      <div class='ingame' id="human">It's your turn ...</div>
+      <div class='ingame' id="human">Your turn, clown.</div>
       <div class='ingame' id="ai">
-        <p>Wait for it ...</p>
-        <img src="https://media.giphy.com/media/aLLliJbo5Mdjy/giphy.gif" id="robot" class="robot" />
+        <p>Wait for it...</p>
       </div>
-      <div class='ingame' id="won">You won !</div>
-      <div class='ingame' id="lost">You lost !</div>
+      <div class='ingame' id="won">You won!</div>
+      <div class='ingame' id="lost">You lost!</div>
       <div class='ingame' id="draw">It's a Draw.</div>
-      <button id='replay'>Replay?</button>
+      <button class='button2' id='replay'>Replay?</button>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
